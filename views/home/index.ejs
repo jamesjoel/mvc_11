@@ -1,0 +1,36 @@
+<div ng-controller="myCtrl" ng-init="getAll()">
+	<button data-toggle="modal" data-target="#addModal" class="btn btn-sm btn-primary">Add New Student</button>
+	<hr />
+	<table class="table table-hover table-bordered">
+		<tr>
+			<th>S.No.</th>
+			<th>Name</th>
+			<th>Age</th>
+			<th>Fee</th>
+			<th>Edit</th>
+			<th>Delete</th>
+		</tr>
+		<tr ng-repeat = "x in data">
+			<td ng-bind="$index+1"></td>
+			<td ng-bind="x.full_name"></td>
+			<td ng-bind="x.age"></td>
+			<td ng-bind="x.fee"></td>
+			<td><button class="btn btn-sm btn-info">Edit</button></td>
+			<td><button class="btn btn-sm btn-danger">Delete</button></td>
+		</tr>
+	</table>
+</div>
+
+<div class="modal fade" id="addModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2>Add New Student</h2>
+			</div>
+			<div class="modal-body"></div>
+			<div class="modal-footer">
+				<button class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
