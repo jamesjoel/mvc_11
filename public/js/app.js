@@ -1,5 +1,8 @@
 var app = angular.module('myApp', []);
 app.controller('myCtrl', function($scope, $http){
+	$scope.newData = {};
+
+
 	$scope.data=[];
 	$scope.getAll=function(){
 		$http({
@@ -8,6 +11,35 @@ app.controller('myCtrl', function($scope, $http){
 		}).then(function(res){
 			console.log(res.data);
 			$scope.data = res.data;
+		});
+	}
+
+	$scope.save=function(){
+		console.log($scope.newData);
+		$http({
+			method : "post",
+			url : "studentWebService/add",
+			data : $scope.newData
+		}).then(function(res){
+			$scope.data.push(res.data);
+		});
+	}
+
+	$scope.askDelete=function(obj){
+		// console.log(obj);
+		$scope.selectedObj=obj;
+	}
+	$scope.delete=function(){
+		console.log($scope.selectedObj);
+		$http({
+			method : "post",
+			url : "studentWebService/delete",
+			data : $scope.selectedObj
+		}).then(function(res){
+			// console.log(res.data);
+			var n = $scope.data.indexOf($scope.selectedObj);
+			$scope.data.splice(n, 1);
+
 		});
 	}
 });
