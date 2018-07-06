@@ -22,6 +22,14 @@ routes.post("/delete", function(req, res){
 		res.send(result);
 	});
 });
+routes.post("/update", function(req, res){
+	// console.log(req.body);
+	var id = req.body._id;
+	delete req.body._id;
+	mongoStudent.update({ _id : mongo.ObjectId(id) }, req.body, function(err, result){
+		res.send(result);
+	});
+});
 
 
 module.exports=routes;

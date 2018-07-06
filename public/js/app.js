@@ -15,14 +15,36 @@ app.controller('myCtrl', function($scope, $http){
 	}
 
 	$scope.save=function(){
-		console.log($scope.newData);
-		$http({
-			method : "post",
-			url : "studentWebService/add",
-			data : $scope.newData
-		}).then(function(res){
-			$scope.data.push(res.data);
-		});
+		if($scope.newData._id)
+		{
+			//update
+			$http({
+				method : "post",
+				url : "studentWebService/update",
+				data : $scope.newData
+			}).then(function(res){
+				// console.log(res.data);
+				for(var i=0; i < $scope.data.length; i++)
+				{
+					if($scope.data[i]._id == $scope.newData._id)
+					{
+						$scope.data[i]=$scope.newData;
+					}
+				}
+			});
+			
+		}
+		else
+		{
+			console.log($scope.newData);
+			$http({
+				method : "post",
+				url : "studentWebService/add",
+				data : $scope.newData
+			}).then(function(res){
+				$scope.data.push(res.data);
+			});
+		}
 	}
 
 	$scope.askDelete=function(obj){
@@ -41,5 +63,9 @@ app.controller('myCtrl', function($scope, $http){
 			$scope.data.splice(n, 1);
 
 		});
+	}
+	$scope.askUpdate=function(obj){
+		// $scope.newData = obj;
+		angular.copy(obj, $scope.newData);
 	}
 });

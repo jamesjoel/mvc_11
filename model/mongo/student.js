@@ -18,3 +18,9 @@ module.exports.remove=function(where, cb){
 		db.collection('student').remove(where, cb);
 	});
 }
+module.exports.update=function(where, obj, cb){
+	connect.mongoCon(function(err, client){
+		var db = client.db('tss_11');
+		db.collection('student').update(where, { $set : obj}, cb);
+	});
+}
